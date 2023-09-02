@@ -11,6 +11,7 @@ class ViewController: UIViewController {
 
     //MARK: Property
     
+    //segmentedControl_step3: 클로저를 사용한 함수로, 버튼 선택시 보여줄 스크린을 설정해줍니다.
     var shouldHideTodoView: Bool?{
         didSet{
             guard let shouldHideTodoView = self.shouldHideTodoView else{return}
@@ -51,7 +52,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         configureUI()
         setLayout()
     }
@@ -62,7 +62,9 @@ class ViewController: UIViewController {
 //MARK: Method
 extension ViewController{
     @objc private func screenChange(segment: UISegmentedControl){
+//        segmentedControl_step4:
 //        self.shouldHideTodoView = segment.selectedSegmentIndex != 0
+        //shouldHideTodoView가 true이면,SegmentIndex == 1을 보여줍니다
         self.shouldHideTodoView = segment.selectedSegmentIndex == 1
     }
 }
@@ -75,8 +77,9 @@ extension ViewController{
         self.view.addSubview(segmentedControl)
         self.view.addSubview(self.toDoView)
         self.view.addSubview(self.doneView)
+        //segmentedControl_step1: controller의 items를 선택했을 때 동작할 액션 setting
         self.segmentedControl.addTarget(self, action: #selector(screenChange(segment: )), for: .valueChanged)
-        //초기 화면을 설정 (with: self.shouldHideTodoView)
+        // segmentedControl_step2: contorller의 초기 화면을 설정함 (with: self.shouldHideTodoView)
         self.segmentedControl.selectedSegmentIndex = 0
         self.screenChange(segment: self.segmentedControl)
         
